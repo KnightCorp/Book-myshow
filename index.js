@@ -1,19 +1,21 @@
 import dotenv from "dotenv";
-dotenv.config({ path: ".env.example" });
+dotenv.config(); // Loads .env locally
+
 import express from "express";
 import routes from "./src/routes/index.js";
 import connectDB from "./src/helpers/mongoose.js";
-// Make all variables from our .env file available in our process
 
-// Init express server
 const app = express();
 
-//rate limit
-await connectDB();
+try {
+  await connectDB(); // Ensure MongoDB connects before starting
+} catch (err) {
+  console.error("Failed to connect to MongoDB:", err);
+  process.exit(1);
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Here we define the api routes
 app.use(routes);
 
 const port = process.env.PORT || 8080;
@@ -21,6 +23,8 @@ const address = process.env.SERVER_ADDRESS || "localhost";
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
-app.listen(port, () => console.log(`Server running on http://${address}:${port}`));
+app.listen(port, () =>
+  console.log(`Server running on http://${address}:${port}`)
+);
 
 export default app;
