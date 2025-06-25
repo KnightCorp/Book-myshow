@@ -4,4 +4,4 @@ name = "BookMyShow API"
 version = "1.0.0"
 
 [[build.buildpacks]]
-id = "google.nodejs"
+id = "gcr.io/paketo-buildpacks/nodejs"
