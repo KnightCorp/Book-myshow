@@ -1,0 +1,7 @@
+[project]
+id = "bookmyshow-api"
+name = "BookMyShow API"
+version = "1.0.0"
+
+[[build.buildpacks]]
+id = "google.nodejs"
